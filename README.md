@@ -233,26 +233,26 @@ Ejemplo de respuesta:
 Capturas incluidas en:
 
 ```
-docs/images/
+Images/
 ```
 
 Ejemplo:
 
 ```markdown
 ### Crear candidato
-![Create Candidate](docs/images/01_postman_create_candidate.png)
+![Create Candidate](Images/01_postman_create_candidate.png)
 
 ### Crear votante
-![Create Voter](docs/images/02_postman_create_voter.png)
+![Create Voter](Images/02_postman_create_voter.png)
 
 ### Emitir voto
-![Cast Vote](docs/images/03_postman_cast_vote.png)
+![Cast Vote](Images/03_postman_cast_vote.png)
 
 ### Estadísticas
-![Statistics](docs/images/04_postman_statistics.png)
+![Statistics](Images/04_postman_statistics.png)
 
 ### Error voto duplicado
-![Vote Twice Error](docs/images/05_postman_vote_twice_error.png)
+![Vote Twice Error](Images/05_postman_vote_twice_error.png)
 ```
 
 ---
