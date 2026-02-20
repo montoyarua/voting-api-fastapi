@@ -63,7 +63,7 @@ app/
 Abrir Git Bash o PowerShell:
 
 ```bash
-git clone https://github.com/TU_USUARIO/voting-api-fastapi.git
+git clone https://github.com/montoyarua/voting-api-fastapi.git
 cd voting-api-fastapi
 ```
 
