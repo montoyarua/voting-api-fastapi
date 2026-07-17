@@ -8,13 +8,13 @@ class VoterRepository:
     """Acceso a datos para Voter."""
 
     def email_exists(self, db: Session, email: str) -> bool:
-        return (db.scalar(select(func.count()).select_from(Voter).where(Voter.email == email)) or 0) > 0
+        return (db.scalar(select(func.count()).select_from(Voter).where(func.lower(Voter.email) == email.lower())) or 0) > 0
 
     def name_exists(self, db: Session, name: str) -> bool:
-        return (db.scalar(select(func.count()).select_from(Voter).where(func.lower(Voter.name) == name.lower())) or 0) > 0
+        return (db.scalar(select(func.count()).select_from(Voter).where(func.lower(func.trim(Voter.name)) == name.strip().lower())) or 0) > 0
 
     def create(self, db: Session, name: str, email: str) -> Voter:
-        voter = Voter(name=name, email=email)
+        voter = Voter(name=name.strip(), email=email.strip().lower())
         db.add(voter)
         db.flush()  # obtiene id sin commit
         return voter

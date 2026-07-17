@@ -24,3 +24,6 @@ class VoteRepository:
 
     def has_vote_for_voter(self, db: Session, voter_id: int) -> bool:
         return (db.scalar(select(func.count(Vote.id)).where(Vote.voter_id == voter_id)) or 0) > 0
+
+    def has_votes_for_candidate(self, db: Session, candidate_id: int) -> bool:
+        return (db.scalar(select(func.count(Vote.id)).where(Vote.candidate_id == candidate_id)) or 0) > 0

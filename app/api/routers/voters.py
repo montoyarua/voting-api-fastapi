@@ -33,15 +33,6 @@ def get_voter(voter_id: int, db: Session = Depends(get_db)):
 
 @router.delete("/{voter_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_voter(voter_id: int, db: Session = Depends(get_db)):
-    voter = repo.get(db, voter_id)
-    if not voter:
-        raise not_found("Voter", voter_id)
-
-    try:
-        repo.delete(db, voter)
-        db.commit()
-    except Exception:
-        db.rollback()
-        raise
-
+    with db.begin():
+        service.delete_voter(db, voter_id)
     return None

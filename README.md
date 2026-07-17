@@ -63,7 +63,7 @@ app/
 Abrir Git Bash o PowerShell:
 
 ```bash
-git clone https://github.com/TU_USUARIO/voting-api-fastapi.git
+git clone https://github.com/montoyarua/voting-api-fastapi.git
 cd voting-api-fastapi
 ```
 
@@ -144,6 +144,12 @@ Servidor disponible en:
 http://127.0.0.1:8000
 ```
 
+## Ejecutar pruebas
+
+```bash
+pytest -q
+```
+
 ---
 
 ## 📘 Documentación Interactiva (Swagger)
@@ -217,6 +223,43 @@ Ejemplo de respuesta:
 
 ---
 
+# Ejemplos de uso con curl
+
+## Crear un votante
+
+```bash
+curl -X POST http://127.0.0.1:8000/voters \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Juan Perez","email":"juan@example.com"}'
+```
+
+## Crear un candidato
+
+```bash
+curl -X POST http://127.0.0.1:8000/candidates \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Ana Lopez","party":"Verde"}'
+```
+
+## Emitir un voto
+
+```bash
+curl -X POST http://127.0.0.1:8000/votes \
+  -H "Content-Type: application/json" \
+  -d '{"voter_id":1,"candidate_id":1}'
+```
+
+## Consultar estadísticas
+
+```bash
+curl http://127.0.0.1:8000/votes/statistics
+```
+
+Los ejemplos usan continuación de línea de Bash. En PowerShell se pueden enviar
+los mismos cuerpos JSON con `Invoke-RestMethod`.
+
+---
+
 # 🔒 Validaciones Implementadas
 
 ✔ Un votante no puede votar más de una vez  
@@ -225,6 +268,14 @@ Ejemplo de respuesta:
 ✔ Actualización automática de `has_voted`  
 ✔ Incremento automático del contador de votos  
 ✔ Manejo de errores con códigos HTTP adecuados  
+
+Para conservar la integridad del historial, un votante que ya votó y un candidato
+que ya recibió votos no se pueden eliminar. En esos casos la API responde con
+`409 Conflict`.
+
+Los nombres se normalizan eliminando espacios repetidos y se comparan sin distinguir
+mayúsculas. Debido a que el modelo solicitado no incluye un documento o correo para
+el candidato, la exclusión entre los roles se valida por nombre.
 
 ---
 
@@ -243,7 +294,7 @@ Ejemplo:
 ![Create Candidate](Images/01_postman_create_candidate.png)
 
 ### Crear votante
-![Create Voter](Images/02_postman_create_voter.png)
+![Voter Already Candidate Error](Images/02_error_voter_already_candidate.png)
 
 ### Emitir voto
 ![Cast Vote](Images/03_postman_cast_vote.png)
